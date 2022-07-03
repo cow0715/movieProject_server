@@ -34,21 +34,27 @@ public class movieDAO {
 		Connection conn = open();
 		List<movieData> movieList = new ArrayList<>();
 		
-		String sql = "select * from movie";
+		String sql = "select * from movie ORDER BY id DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
 		try(conn; pstmt; rs) {
 			while(rs.next()) {
 				movieData n = new movieData();
+				n.setMovieId(rs.getString("movie_id"));
 				n.setTitle(rs.getString("TITLE"));
-				n.setStory(rs.getString("STORY"));
-				//n.setRunningTime(rs.getInt("RUNNING_TIME")); 
-				n.setGenre(rs.getString("GENRE")); 
-				n.setReleaseDate(rs.getString("RELEASE_DATE"));
-				n.setCountry(rs.getString("COUNTRY"));
-				n.setRate(rs.getString("RATE"));
-				n.setmovieUrl(rs.getString("MOVIE_IMG"));
+				n.setMovieImg(rs.getString("movie_img"));
+				n.setRunningTime(rs.getInt("running_time")); 
+				n.setGenre(rs.getString("genre"));
+				n.setReleaseDate(rs.getString("release_date"));
+				n.setCountry(rs.getString("country"));
+				n.setStory(rs.getString("story"));
+				n.setRate(rs.getString("rate"));
+				n.setActorId(rs.getString("actor_id"));
+				n.setReleaseYear(rs.getInt("release_year"));
+				n.setContent(rs.getString("content"));
+				n.setCompany(rs.getString("company"));
+				n.setmovieUrl(rs.getString("movie_url"));
 				n.setActor(getActorImg(rs.getString("MOVIE_ID")));
 				
 				movieList.add(n);
@@ -65,7 +71,7 @@ public class movieDAO {
 		List<actorData> actorList = new ArrayList<>();
 		
 		
-		String sql = "select actor, character, ACTOR_IMG from actor where MOVIE_ID  = ?";
+		String sql = "select actor, character, ACTOR_IMG, movie_id from actor where MOVIE_ID  = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, movieId);
 		ResultSet rs = pstmt.executeQuery();
@@ -76,6 +82,7 @@ public class movieDAO {
 				ad.setActor(rs.getString("actor"));
 				ad.setCharacter(rs.getString("character"));
 				ad.setActorImg(rs.getString("ACTOR_IMG"));
+				ad.setMovieId(rs.getString("movie_id"));
 				
 				actorList.add(ad);
 			}

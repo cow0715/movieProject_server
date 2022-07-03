@@ -29,7 +29,7 @@ public class movieController {
 	}
 	
 	@GetMapping
-	public ResponseDTO<movieData> listSns( ){
+	public ResponseDTO<movieData> listMovie(){
 		ResponseDTO<movieData> responseDTO = new ResponseDTO<movieData>();
 		 
 		List<movieData> list = null; 
