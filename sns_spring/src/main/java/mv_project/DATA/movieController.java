@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -71,6 +72,27 @@ public class movieController {
 		responseDTO.setResultCode("0000");
 		responseDTO.setResultMsg("정상");
 		responseDTO.setResultData(list);
+		return responseDTO;
+	}
+	
+	
+	@GetMapping("/genre/{genre}")
+	public ResponseDTO<movieData> getGenre(@PathVariable String genre) {
+		
+		ResponseDTO<movieData> responseDTO = new ResponseDTO<movieData>();
+		 
+		//List<movieData> list =  new ArrayList<movieData>();
+		List<movieData> GenreList = null; 
+		try {
+			GenreList = dao.getGenre(genre);
+			//list.addAll(GenreList);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		responseDTO.setResultCode("0000");
+		responseDTO.setResultMsg("정상");
+		responseDTO.setResultData(GenreList);
 		return responseDTO;
 	}
 
