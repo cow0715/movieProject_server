@@ -164,4 +164,173 @@ public class movieDAO {
 			return actorList;
 		}
 	}
+	
+	// 제작 회사 목록 가져오기
+	public List<movieData> getNeflix(String company) throws Exception{
+		Connection conn = open();
+		List<movieData> movieList = new ArrayList<>();
+		
+		String sql = "select MOVIE_IMG, title, company, content, genre, RELEASE_YEAR from movie where company = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, company);
+		ResultSet rs = pstmt.executeQuery();
+		
+		try(conn; pstmt; rs) {
+			while(rs.next()) {
+				movieData n = new movieData();
+				
+				n.setTitle(rs.getString("TITLE"));
+				n.setMovieImg(rs.getString("movie_img"));				
+				n.setGenre(rs.getString("genre"));
+				n.setReleaseYear(rs.getInt("release_year"));
+				n.setContent(rs.getString("content"));
+				n.setCompany(rs.getString("company"));
+				
+				movieList.add(n);
+			}
+			return movieList;			
+		}
+	}
+	
+	
+	// 제작 국가별로 가져오기
+	public List<movieData> getCountry(String country) throws Exception{
+		Connection conn = open();
+		List<movieData> movieList = new ArrayList<>();
+		
+		String sql = "select MOVIE_IMG, title, company, content, genre, RELEASE_YEAR from movie where COUNTRY = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, country);
+		ResultSet rs = pstmt.executeQuery();
+		
+		try(conn; pstmt; rs) {
+			while(rs.next()) {
+				movieData n = new movieData();
+				
+				n.setTitle(rs.getString("TITLE"));
+				n.setMovieImg(rs.getString("movie_img"));				
+				n.setGenre(rs.getString("genre"));
+				n.setReleaseYear(rs.getInt("release_year"));
+				n.setContent(rs.getString("content"));
+				n.setCompany(rs.getString("company"));
+				
+				movieList.add(n);
+			}
+			return movieList;			
+		}
+	}
+	
+	
+	// 런닝타임 60분 이하 가져오기
+		public List<movieData> getRunningTime59() throws Exception{
+			Connection conn = open();
+			List<movieData> movieList = new ArrayList<>();
+				
+			String sql = "SELECT MOVIE_IMG, title, company, content, genre, RELEASE_YEAR, RUNNING_TIME FROM movie WHERE running_time < 59";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			try(conn; pstmt; rs) {
+				while(rs.next()) {
+					
+					movieData n = new movieData();
+					
+					n.setTitle(rs.getString("TITLE"));
+					n.setMovieImg(rs.getString("movie_img"));				
+					n.setGenre(rs.getString("genre"));
+					n.setReleaseYear(rs.getInt("release_year"));
+					n.setContent(rs.getString("content"));
+					n.setCompany(rs.getString("company"));
+					n.setRunningTime(rs.getInt("RUNNING_TIME"));
+											
+					movieList.add(n);
+				}
+				return movieList;			
+			}
+		}
+		
+		
+	// 런닝타임 60~89분 가져오기
+	public List<movieData> getRunningTime60() throws Exception{
+		Connection conn = open();
+		List<movieData> movieList = new ArrayList<>();
+			
+		String sql = "SELECT MOVIE_IMG, title, company, content, genre, RELEASE_YEAR, RUNNING_TIME FROM movie WHERE running_time between 60 and 89";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		try(conn; pstmt; rs) {
+			while(rs.next()) {
+				
+				movieData n = new movieData();
+				
+				n.setTitle(rs.getString("TITLE"));
+				n.setMovieImg(rs.getString("movie_img"));				
+				n.setGenre(rs.getString("genre"));
+				n.setReleaseYear(rs.getInt("release_year"));
+				n.setContent(rs.getString("content"));
+				n.setCompany(rs.getString("company"));
+				n.setRunningTime(rs.getInt("RUNNING_TIME"));
+										
+				movieList.add(n);
+			}
+			return movieList;			
+		}
+	}
+	
+	// 런닝타임 90~119분 가져오기
+		public List<movieData> getRunningTime90() throws Exception{
+			Connection conn = open();
+			List<movieData> movieList = new ArrayList<>();
+				
+			String sql = "SELECT MOVIE_IMG, title, company, content, genre, RELEASE_YEAR, RUNNING_TIME FROM movie WHERE running_time between 90 and 119";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			try(conn; pstmt; rs) {
+				while(rs.next()) {
+					
+					movieData n = new movieData();
+					
+					n.setTitle(rs.getString("TITLE"));
+					n.setMovieImg(rs.getString("movie_img"));				
+					n.setGenre(rs.getString("genre"));
+					n.setReleaseYear(rs.getInt("release_year"));
+					n.setContent(rs.getString("content"));
+					n.setCompany(rs.getString("company"));
+					n.setRunningTime(rs.getInt("RUNNING_TIME"));
+											
+					movieList.add(n);
+				}
+				return movieList;			
+			}
+		}
+		
+		// 런닝타임 120분 가져오기
+		public List<movieData> getRunningTime120() throws Exception{
+			Connection conn = open();
+			List<movieData> movieList = new ArrayList<>();
+				
+			String sql = "SELECT MOVIE_IMG, title, company, content, genre, RELEASE_YEAR, RUNNING_TIME FROM movie WHERE running_time > 120";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			
+			try(conn; pstmt; rs) {
+				while(rs.next()) {
+					
+					movieData n = new movieData();
+					
+					n.setTitle(rs.getString("TITLE"));
+					n.setMovieImg(rs.getString("movie_img"));				
+					n.setGenre(rs.getString("genre"));
+					n.setReleaseYear(rs.getInt("release_year"));
+					n.setContent(rs.getString("content"));
+					n.setCompany(rs.getString("company"));
+					n.setRunningTime(rs.getInt("RUNNING_TIME"));
+											
+					movieList.add(n);
+				}
+				return movieList;			
+			}
+		}
 }
