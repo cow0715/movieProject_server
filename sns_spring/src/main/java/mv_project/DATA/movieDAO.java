@@ -100,10 +100,47 @@ public class movieDAO {
 		}
 	}
 	
+	//장르별로 가져오기
+	public List<movieData> getGenre(String genre) throws Exception{
+		Connection conn = open();
+		List<movieData> movieList = new ArrayList<>();
+		
+		String sql = "SELECT * FROM movie WHERE genre = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, genre);
+		ResultSet rs = pstmt.executeQuery();
+		
+		try(conn; pstmt; rs) {
+			while(rs.next()) {
+				
+				movieData n = new movieData();
+				
+				n.setMovieId(rs.getString("movie_id"));
+				n.setTitle(rs.getString("TITLE"));
+				n.setMovieImg(rs.getString("movie_img"));
+				n.setRunningTime(rs.getInt("running_time")); 
+				n.setGenre(rs.getString("genre"));
+				n.setReleaseDate(rs.getString("release_date"));
+				n.setCountry(rs.getString("country"));
+				n.setStory(rs.getString("story"));
+				n.setRate(rs.getString("rate"));
+				n.setActorId(rs.getString("actor_id"));
+				n.setReleaseYear(rs.getInt("release_year"));
+				n.setContent(rs.getString("content"));
+				n.setCompany(rs.getString("company"));
+				n.setmovieUrl(rs.getString("movie_url"));
+				n.setActor(getActorImg(rs.getString("MOVIE_ID")));
+				
+				movieList.add(n);
+			}
+			return movieList;			
+		}
+	}
 
 
 
 
+	// 출연 배우 목록 가져오기
 	public List<actorData> getActorImg(String movieId) throws Exception {
 		Connection conn = open();
 		List<actorData> actorList = new ArrayList<>();
