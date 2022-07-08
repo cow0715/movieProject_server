@@ -38,21 +38,22 @@ public class movieDAO {
 		try (conn; pstmt; rs) {
 			while (rs.next()) {
 				movieData n = new movieData();
-				n.setMovieId(rs.getString("movie_id"));
-				n.setTitle(rs.getString("TITLE"));
+				//n.setMovieId(rs.getString("movie_id"));
+				n.setTitle(rs.getString("title"));
 				n.setMovieImg(rs.getString("movie_img"));
-				n.setRunningTime(rs.getInt("running_time"));
-				n.setGenre(rs.getString("genre"));
-				n.setReleaseDate(rs.getString("release_date"));
-				n.setCountry(rs.getString("country"));
-				n.setStory(rs.getString("story"));
-				n.setRate(rs.getString("rate"));
-				n.setActorId(rs.getString("actor_id"));
-				n.setReleaseYear(rs.getInt("release_year"));
+				//n.setRunningTime(rs.getInt("running_time"));
+				//n.setGenre(rs.getString("genre"));
+				//n.setReleaseDate(rs.getString("release_date"));
+				//n.setCountry(rs.getString("country"));
+				//n.setStory(rs.getString("story"));
+				//n.setRate(rs.getString("rate"));
+				//n.setActorId(rs.getString("actor_id"));
+				//n.setReleaseYear(rs.getInt("release_year"));
 				n.setContent(rs.getString("content"));
-				n.setCompany(rs.getString("company"));
-				n.setmovieUrl(rs.getString("movie_url"));
-				n.setActor(getActorImg(rs.getString("MOVIE_ID")));
+				n.setType(rs.getInt("type"));
+				//n.setCompany(rs.getString("company"));
+				//n.setmovieUrl(rs.getString("movie_url"));
+				//n.setActor(getActorImg(rs.getString("MOVIE_ID")));
 
 				movieList.add(n);
 			}
@@ -159,7 +160,7 @@ public class movieDAO {
 	}
 
 	// 제작 회사 목록 가져오기
-	public List<movieData> getNeflix(String company) throws Exception {
+	public List<movieData> getCompany(String company) throws Exception {
 		Connection conn = open();
 		List<movieData> movieList = new ArrayList<>();
 

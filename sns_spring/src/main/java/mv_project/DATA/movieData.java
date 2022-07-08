@@ -17,6 +17,7 @@ public class movieData {
 	private String movieUrl;
 	private int runningTime;
 	private int releaseYear;
+	private int type;
 	private List<actorData> actor;
 	
 	public String getMovieId() {
@@ -102,6 +103,13 @@ public class movieData {
 	}
 	public void setReleaseYear(int releaseYear) {
 		this.releaseYear = releaseYear;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	public List<actorData> getActor() {
 		return actor;

@@ -105,7 +105,7 @@ public class movieController {
 		try {
 			logger.info("listCompany");
 
-			Companylist = dao.getNeflix(company);
+			Companylist = dao.getCompany(company);
 			logger.info(Companylist.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
