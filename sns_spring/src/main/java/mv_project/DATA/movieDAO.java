@@ -38,22 +38,22 @@ public class movieDAO {
 		try (conn; pstmt; rs) {
 			while (rs.next()) {
 				movieData n = new movieData();
-				//n.setMovieId(rs.getString("movie_id"));
+				n.setMovieId(rs.getString("movie_id"));
 				n.setTitle(rs.getString("title"));
 				n.setMovieImg(rs.getString("movie_img"));
-				//n.setRunningTime(rs.getInt("running_time"));
-				//n.setGenre(rs.getString("genre"));
-				//n.setReleaseDate(rs.getString("release_date"));
-				//n.setCountry(rs.getString("country"));
-				//n.setStory(rs.getString("story"));
-				//n.setRate(rs.getString("rate"));
-				//n.setActorId(rs.getString("actor_id"));
-				//n.setReleaseYear(rs.getInt("release_year"));
+				n.setRunningTime(rs.getInt("running_time"));
+				n.setGenre(rs.getString("genre"));
+				n.setReleaseDate(rs.getString("release_date"));
+				n.setCountry(rs.getString("country"));
+				n.setStory(rs.getString("story"));
+				n.setRate(rs.getString("rate"));
+				n.setActorId(rs.getString("actor_id"));
+				n.setReleaseYear(rs.getInt("release_year"));
 				n.setContent(rs.getString("content"));
-				n.setType(rs.getInt("type"));
-				//n.setCompany(rs.getString("company"));
-				//n.setmovieUrl(rs.getString("movie_url"));
-				//n.setActor(getActorImg(rs.getString("MOVIE_ID")));
+				n.setType(2);
+				n.setCompany(rs.getString("company"));
+				n.setmovieUrl(rs.getString("movie_url"));
+				n.setActor(getActorImg(rs.getString("MOVIE_ID")));
 
 				movieList.add(n);
 			}
@@ -172,7 +172,7 @@ public class movieDAO {
 		try (conn; pstmt; rs) {
 			while (rs.next()) {
 				movieData n = new movieData();
-
+				n.setType(0);
 				n.setTitle(rs.getString("TITLE"));
 				n.setMovieImg(rs.getString("movie_img"));
 				n.setGenre(rs.getString("genre"));
@@ -547,5 +547,35 @@ public class movieDAO {
 			return movieList;
 		}
 	}
+	
+	
+	// searchView data 가져오기
+		public List<movieData> getSearchItem() throws Exception {
+			Connection conn = open();
+			List<movieData> movieList = new ArrayList<>();
+
+			String sql = "SELECT MOVIE_IMG, title, company, content, genre, RELEASE_YEAR FROM movie";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+
+			try (conn; pstmt; rs) {
+				while (rs.next()) {
+
+					movieData n = new movieData();
+
+					n.setTitle(rs.getString("TITLE"));
+					n.setMovieImg(rs.getString("movie_img"));
+					n.setGenre(rs.getString("genre"));
+					n.setReleaseYear(rs.getInt("release_year"));
+					n.setContent(rs.getString("content"));
+					n.setCompany(rs.getString("company"));
+					n.setType(1);
+					
+
+					movieList.add(n);
+				}
+				return movieList;
+			}
+		}
 
 }

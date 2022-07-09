@@ -386,7 +386,7 @@ public class movieController {
 
 	
 	// 청불
-	@GetMapping("/age/19")
+	@GetMapping("/age/19")  
 	public ResponseDTO<movieData> listAge19() {
 		ResponseDTO<movieData> responseDTO = new ResponseDTO<movieData>();
 
@@ -406,5 +406,28 @@ public class movieController {
 		responseDTO.setResultData(list);
 		return responseDTO;
 	}
+	
+	
+	// searchView
+		@GetMapping("/searchViewData")  
+		public ResponseDTO<movieData> ListSearchItem() {
+			ResponseDTO<movieData> responseDTO = new ResponseDTO<movieData>();
+
+			List<movieData> list = null;
+			try {
+				
+
+				list = dao.getSearchItem();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.warn("오류");
+			}
+
+			responseDTO.setResultCode("0000");
+			responseDTO.setResultMsg("정상");
+			responseDTO.setResultData(list);
+			return responseDTO;
+		}
 
 }
